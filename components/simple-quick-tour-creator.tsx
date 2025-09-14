@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { useToast } from "@/hooks/use-toast"
 import { createClient } from "@/lib/supabase/client"
+import { tokenManager } from "@/lib/shiphero/token-manager"
 
 interface Warehouse {
   id: string
@@ -151,11 +152,18 @@ export function SimpleQuickTourCreator() {
         quantity: getRandomQuantity(1, 25)
       }))
       
+      // Get access token
+      const accessToken = await tokenManager.getValidAccessToken()
+      if (!accessToken) {
+        throw new Error('No ShipHero access token available')
+      }
+      
       // Create the order via API
       const response = await fetch('/api/shiphero/orders', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
         },
         body: JSON.stringify({
           type: 'purchase_order',
@@ -213,11 +221,18 @@ export function SimpleQuickTourCreator() {
         }]
       }
       
+      // Get access token
+      const accessToken = await tokenManager.getValidAccessToken()
+      if (!accessToken) {
+        throw new Error('No ShipHero access token available')
+      }
+      
       // Create the order via API
       const response = await fetch('/api/shiphero/orders', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
         },
         body: JSON.stringify({
           type: 'sales_order',
