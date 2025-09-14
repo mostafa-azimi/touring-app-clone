@@ -845,8 +845,16 @@ export function ScheduleTourPage() {
         <p className="text-slate-600">Create a new warehouse tour and configure training workflows and products for realistic demonstrations.</p>
       </div>
 
-      <Card className="shadow-sm border-slate-200">
-        <CardHeader className="bg-slate-50 border-b border-slate-200">
+      {/* Quick Tour Creator */}
+      <div className="mb-8">
+        <div className="bg-red-500 text-white p-4 rounded-lg">
+          <h2 className="text-xl font-bold">🚀 QUICK TOUR CREATOR - MANUAL FIX</h2>
+          <p>This MUST be visible now!</p>
+        </div>
+        <QuickTourCreator />
+      </div>
+
+      <Card className="shadow-sm border-slate-200"        <CardHeader className="bg-slate-50 border-b border-slate-200">
           <CardTitle className="text-lg font-semibold text-slate-800">Tour Configuration</CardTitle>
           <CardDescription className="text-slate-600">
             Fill out the tour details, select training workflows, and choose products for demonstrations.
