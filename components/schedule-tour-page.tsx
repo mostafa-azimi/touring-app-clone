@@ -16,6 +16,7 @@ import { createClient } from "@/lib/supabase/client"
 import { useToast } from "@/hooks/use-toast"
 import { Checkbox } from "@/components/ui/checkbox"
 import { WorkflowOption } from "@/lib/shiphero/tour-finalization-service"
+import { SimpleQuickTourCreator } from "./simple-quick-tour-creator"
 // Products are managed through ShipHero inventory API
 
 // Generic component for product selection with quantities (used by all workflows)
@@ -846,13 +847,7 @@ export function ScheduleTourPage() {
       </div>
 
       {/* Quick Tour Creator */}
-      <div className="mb-8">
-        <div className="bg-red-500 text-white p-4 rounded-lg">
-          <h2 className="text-xl font-bold">🚀 QUICK TOUR CREATOR - MANUAL FIX</h2>
-          <p>This MUST be visible now!</p>
-        </div>
-        <QuickTourCreator />
-      </div>
+      <SimpleQuickTourCreator />
 
       <Card className="shadow-sm border-slate-200">
         <CardHeader className="bg-slate-50 border-b border-slate-200">
