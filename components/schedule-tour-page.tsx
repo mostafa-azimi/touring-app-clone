@@ -854,7 +854,8 @@ export function ScheduleTourPage() {
         <QuickTourCreator />
       </div>
 
-      <Card className="shadow-sm border-slate-200"        <CardHeader className="bg-slate-50 border-b border-slate-200">
+      <Card className="shadow-sm border-slate-200">
+        <CardHeader className="bg-slate-50 border-b border-slate-200">
           <CardTitle className="text-lg font-semibold text-slate-800">Tour Configuration</CardTitle>
           <CardDescription className="text-slate-600">
             Fill out the tour details, select training workflows, and choose products for demonstrations.
