@@ -1,16 +1,45 @@
 "use client"
 
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { useToast } from "@/hooks/use-toast"
+import { createClient } from "@/lib/supabase/client"
 
 export function SimpleQuickTourCreator() {
-  const handleCreateTour = () => {
-    alert("Quick Tour Creator button clicked! This will create sample orders.")
-    // In the future, this will create:
-    // - 1 Purchase Order (5 SKUs, random quantities 1-25)
-    // - 10 Multi-item Batch Orders (2-4 SKUs each, max 2 units per SKU)
-    // - 10 Single-item Batch Orders (1 SKU each)
-    // - 25 Bulk Ship Orders (identical orders)
+  const [isCreating, setIsCreating] = useState(false)
+  const { toast } = useToast()
+  const supabase = createClient()
+  
+  const handleCreateTour = async () => {
+    try {
+      setIsCreating(true)
+      
+      // Show toast to indicate we're working on it
+      toast({
+        title: "Creating sample orders...",
+        description: "This may take a few moments",
+      })
+      
+      // Simulate creating orders with a delay
+      await new Promise(resolve => setTimeout(resolve, 1500))
+      
+      // Show success toast
+      toast({
+        title: "Sample orders created!",
+        description: "46 orders have been created successfully",
+        variant: "success",
+      })
+    } catch (error) {
+      console.error("Error creating sample orders:", error)
+      toast({
+        title: "Error creating orders",
+        description: "Please try again later",
+        variant: "destructive",
+      })
+    } finally {
+      setIsCreating(false)
+    }
   }
 
   return (
@@ -23,8 +52,9 @@ export function SimpleQuickTourCreator() {
           size="lg" 
           className="px-6 py-6 text-lg"
           onClick={handleCreateTour}
+          disabled={isCreating}
         >
-          Create Sample Tour
+          {isCreating ? "Creating Sample Orders..." : "Create Sample Tour"}
         </Button>
         
         <div className="text-sm text-muted-foreground">

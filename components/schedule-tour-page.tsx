@@ -846,9 +846,6 @@ export function ScheduleTourPage() {
         <p className="text-slate-600">Create a new warehouse tour and configure training workflows and products for realistic demonstrations.</p>
       </div>
 
-      {/* Quick Tour Creator */}
-      <SimpleQuickTourCreator />
-
       <Card className="shadow-sm border-slate-200">
         <CardHeader className="bg-slate-50 border-b border-slate-200">
           <CardTitle className="text-lg font-semibold text-slate-800">Tour Configuration</CardTitle>
@@ -1256,6 +1253,11 @@ export function ScheduleTourPage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Quick Tour Creator - After Configuration */}
+      <div className="mt-8">
+        <SimpleQuickTourCreator />
+      </div>
     </div>
   )
 }
