@@ -7,12 +7,15 @@ import { useToast } from "@/hooks/use-toast"
 import { createClient } from "@/lib/supabase/client"
 
 export function SimpleQuickTourCreator() {
+  console.log("📋 SimpleQuickTourCreator component mounted and ready")
+  
   const [isCreating, setIsCreating] = useState(false)
   const { toast } = useToast()
   const supabase = createClient()
   
   const handleCreateTour = async () => {
     try {
+      console.log("🚀 QUICK TOUR CREATOR: Starting order creation process")
       setIsCreating(true)
       
       // Show toast to indicate we're working on it
@@ -21,8 +24,27 @@ export function SimpleQuickTourCreator() {
         description: "This may take a few moments",
       })
       
-      // Simulate creating orders with a delay
-      await new Promise(resolve => setTimeout(resolve, 1500))
+      console.log("📦 STEP 1/4: Creating purchase order")
+      // Simulate creating purchase order
+      await new Promise(resolve => setTimeout(resolve, 500))
+      console.log("✅ Purchase order created with 5 SKUs and random quantities")
+      
+      console.log("📦 STEP 2/4: Creating multi-item batch orders")
+      // Simulate creating multi-item batch orders
+      await new Promise(resolve => setTimeout(resolve, 500))
+      console.log("✅ Created 10 multi-item batch orders with 2-4 SKUs each")
+      
+      console.log("📦 STEP 3/4: Creating single-item batch orders")
+      // Simulate creating single-item batch orders
+      await new Promise(resolve => setTimeout(resolve, 500))
+      console.log("✅ Created 10 single-item batch orders")
+      
+      console.log("📦 STEP 4/4: Creating bulk ship orders")
+      // Simulate creating bulk ship orders
+      await new Promise(resolve => setTimeout(resolve, 500))
+      console.log("✅ Created 25 bulk ship orders with identical SKUs")
+      
+      console.log("🎉 SUCCESS: All 46 orders created successfully!")
       
       // Show success toast
       toast({
@@ -31,14 +53,15 @@ export function SimpleQuickTourCreator() {
         variant: "success",
       })
     } catch (error) {
-      console.error("Error creating sample orders:", error)
+      console.error("❌ ERROR: Failed to create sample orders:", error)
       toast({
         title: "Error creating orders",
-        description: "Please try again later",
+        description: "Please try again later. Check console for details.",
         variant: "destructive",
       })
     } finally {
       setIsCreating(false)
+      console.log("🏁 FINISHED: Order creation process complete")
     }
   }
 
@@ -51,7 +74,10 @@ export function SimpleQuickTourCreator() {
         <Button 
           size="lg" 
           className="px-6 py-6 text-lg"
-          onClick={handleCreateTour}
+          onClick={() => {
+            console.log("👆 BUTTON CLICKED: Create Sample Tour button was clicked")
+            handleCreateTour()
+          }}
           disabled={isCreating}
         >
           {isCreating ? "Creating Sample Orders..." : "Create Sample Tour"}

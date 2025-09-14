@@ -1254,8 +1254,8 @@ export function ScheduleTourPage() {
         </CardContent>
       </Card>
 
-      {/* Quick Tour Creator - After Configuration */}
-      <div className="mt-8">
+      {/* Quick Tour Creator - After Tour Configuration */}
+      <div className="mt-8 mb-8">
         <SimpleQuickTourCreator />
       </div>
     </div>
