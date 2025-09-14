@@ -58,41 +58,53 @@ export function SimpleQuickTourCreator() {
         console.log("⚠️ No warehouses found")
       }
       
-      // Load hosts
+      // Load hosts (from team_members table)
       const { data: hostData } = await supabase
-        .from('hosts')
+        .from('team_members')
         .select('id, first_name, last_name, email')
         .order('last_name')
       
       if (hostData && hostData.length > 0) {
         setHosts(hostData)
-        console.log(`✅ Loaded ${hostData.length} hosts`)
+        console.log(`✅ Loaded ${hostData.length} hosts from team_members`)
       } else {
-        console.log("⚠️ No hosts found")
+        console.log("⚠️ No hosts found in team_members table")
       }
       
-      // Load products
-      const { data: productData } = await supabase
-        .from('products')
-        .select('id, sku, name')
-        .order('name')
+      // Use hardcoded products since there's no products table
+      const hardcodedProducts = [
+        { id: '1', sku: 'DEMO-001', name: 'Demo Product 1' },
+        { id: '2', sku: 'DEMO-002', name: 'Demo Product 2' },
+        { id: '3', sku: 'DEMO-003', name: 'Demo Product 3' },
+        { id: '4', sku: 'DEMO-004', name: 'Demo Product 4' },
+        { id: '5', sku: 'DEMO-005', name: 'Demo Product 5' },
+        { id: '6', sku: 'SAMPLE-A', name: 'Sample Product A' },
+        { id: '7', sku: 'SAMPLE-B', name: 'Sample Product B' },
+        { id: '8', sku: 'SAMPLE-C', name: 'Sample Product C' },
+        { id: '9', sku: 'TEST-X', name: 'Test Product X' },
+        { id: '10', sku: 'TEST-Y', name: 'Test Product Y' }
+      ]
       
-      if (productData && productData.length > 0) {
-        setProducts(productData)
-        console.log(`✅ Loaded ${productData.length} products`)
-      } else {
-        console.log("⚠️ No products found")
-      }
+      setProducts(hardcodedProducts)
+      console.log(`✅ Using ${hardcodedProducts.length} hardcoded products for demo`)
       
       // Load tenant config for hold_until setting
-      const { data: configData } = await supabase
-        .from('tenant_config')
-        .select('enable_hold_until')
-        .single()
-      
-      if (configData) {
-        setHoldUntilEnabled(configData.enable_hold_until || false)
-        console.log(`✅ Hold Until setting: ${configData.enable_hold_until ? 'Enabled' : 'Disabled'}`)
+      try {
+        const { data: configData, error: configError } = await supabase
+          .from('tenant_config')
+          .select('enable_hold_until')
+          .single()
+        
+        if (configData && !configError) {
+          setHoldUntilEnabled(configData.enable_hold_until || false)
+          console.log(`✅ Hold Until setting: ${configData.enable_hold_until ? 'Enabled' : 'Disabled'}`)
+        } else {
+          console.log("⚠️ No tenant config found, using default (disabled)")
+          setHoldUntilEnabled(false)
+        }
+      } catch (configError) {
+        console.log("⚠️ Error loading tenant config, using default (disabled):", configError)
+        setHoldUntilEnabled(false)
       }
       
     } catch (error) {
