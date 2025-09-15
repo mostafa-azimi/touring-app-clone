@@ -244,7 +244,7 @@ export function SimpleQuickTourCreator() {
             last_name: host.last_name,
             shop_name: "ShipHero Tour Demo",
             fulfillment_status: holdUntilEnabled ? "hold_until" : "pending",
-            address: {
+            shipping_address: {
               first_name: host.first_name,
               last_name: host.last_name,
               address1: "123 Main St",
@@ -253,6 +253,20 @@ export function SimpleQuickTourCreator() {
               zip: "10001",
               country: "US",
               email: host.email
+            },
+            billing_address: {
+              first_name: host.first_name,
+              last_name: host.last_name,
+              address1: "123 Main St",
+              city: "New York",
+              state: "NY",
+              zip: "10001",
+              country: "US",
+              email: host.email
+            },
+            shipping_lines: {
+              title: "Standard Shipping",
+              price: "0.00"
             },
             line_items: lineItems
           }
